@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+// for environment variables
+require('dotenv').config() 
+
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -10,8 +13,10 @@ app.use(express.urlencoded({ extended: true }))
 // static folder
 app.use(express.static('build'))
 
-// react index.html file
-//const reactPath = __dirname + '/build/index.html'
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/build/index.html')
