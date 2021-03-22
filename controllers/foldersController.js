@@ -1,8 +1,9 @@
 const Folder = require('../models/Folder')
 
+// requires folder id
 exports.getFolder = (req, res) => {
 
-    Folder.findById(`${req.params.id}`, (err, results) => {
+    Folder.findById(`${req.query.id}`, (err, results) => {
         if (err) console.log(err)
     })
     .populate(['notes'])
@@ -14,7 +15,7 @@ exports.getFolder = (req, res) => {
 
 exports.getAllFolders = (req, res) => {
     Folder.find()
-    // .populate(['notes'])
+    .populate(['notes'])
     .exec((err, results) => {
         if (err) console.log(err)
 

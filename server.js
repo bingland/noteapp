@@ -47,7 +47,7 @@ app.put('/api/note', notesController.editNote)
 app.delete('/api/note', notesController.deleteNote)
 
 // folders routes
-app.get('/api/folder/:id', foldersController.getFolder)
+app.get('/api/folder', foldersController.getFolder)
 app.get('/api/folders', foldersController.getAllFolders)
 
 // run server on port
