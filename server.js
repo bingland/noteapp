@@ -40,10 +40,11 @@ app.get('/', (req, res) => {
 })
 
 // notes routes
-app.get('/api/note/:id', notesController.getNote)
+app.get('/api/note', notesController.getNote)
 app.get('/api/notes', notesController.getAllNotes)
 app.post('/api/note', notesController.createNote)
 app.put('/api/note', notesController.editNote)
+app.delete('/api/note', notesController.deleteNote)
 
 // folders routes
 app.get('/api/folder/:id', foldersController.getFolder)

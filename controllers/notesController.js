@@ -3,10 +3,11 @@ const Folder = require('../models/Folder')
 
 // GET methods
 
+// requires note id
 exports.getNote = (req, res) => {
     console.log('notesController / getNote')
 
-    Note.findById(`${req.params.id}`, (err, results) => {
+    Note.findById(`${req.query.id}`, (err, results) => {
         if (err) console.log(err)
     })
     .populate('folder')
@@ -16,6 +17,7 @@ exports.getNote = (req, res) => {
     })
 }
 
+// requires nothing
 exports.getAllNotes = (req, res) => {
     console.log('notesController / getAllNotes')
 
@@ -29,6 +31,7 @@ exports.getAllNotes = (req, res) => {
 
 // POST methods
 
+// requires folder
 exports.createNote = (req, res) => {
     console.log('notesController / createNote')
 
@@ -62,9 +65,9 @@ exports.createNote = (req, res) => {
 
 // PUT methods
 
+// requires title, body, folder, id
 exports.editNote = (req, res) => {
-    console.log('notesController / createNote')
-    console.log(req.query.id)
+    console.log('notesController / editNote')
 
     Note.findById(`${req.query.id}`, (err, note) => {
         if (err) console.log(err)
@@ -88,4 +91,41 @@ exports.editNote = (req, res) => {
             })
         })
     })
+}
+
+// requires note id
+exports.deleteNote = (req, res) => {
+    console.log('notesController / deleteNote')
+
+    Note.findById(`${req.query.id}`, (err, note) => {
+        if (err) console.log(err)
+
+        let folderId = note.folder
+        let noteId = note._id
+
+        // delete the note
+        Note.deleteOne({_id: req.query.id}, (err, note) => {
+            if (err) console.log(err)
+
+            // remove redundant ObjectID from folder
+            Folder.findOneAndUpdate(
+                {_id: folderId},
+                { $pull: {notes: noteId} },
+                (err, result) => {
+                    if (err) console.log(err)
+                }
+            )
+        })
+
+        // return folder w/ notes
+        Folder.findById(`${folderId}`, (err, results) => {
+            if (err) console.log(err)
+        })
+        .populate(['notes'])
+        .exec((err, results) => {
+            if (err) console.log(err)
+            res.json(results)
+        })
+    })
+
 }
