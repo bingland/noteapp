@@ -7,7 +7,7 @@ const NoteEdit = (props) => {
     <div className="NoteEdit">
       {props.currentNote.title !== undefined ? 
         <div className="noteEditBox" data-id={props.currentNote._id}>
-          <button className="deleteNoteBtn">Delete Note</button>
+          <button onClick={() => props.getData(props.routes.deleteNote, {id: props.currentNote._id})} className="deleteNoteBtn">Delete Note</button>
           <button className="saveNoteBtn">Save Note</button>
           <input 
             className="noteEditTitle" 
@@ -26,7 +26,7 @@ const NoteEdit = (props) => {
 
         </div>
       : 
-      <p>Select a note...</p>}
+      <p className="selectMessage">Select a note...</p>}
     </div>
   );
 }

@@ -54,10 +54,19 @@ exports.createNote = (req, res) => {
             }
         )
 
-        Note.find()
-        .populate('folder')
+        // Note.find()
+        // .populate('folder')
+        // .exec((err, results) => {
+        //     if (err) console.log(err)
+        //     res.json(results)
+        // })
+
+        // return all folders with all notes
+        Folder.find()
+        .populate(['notes'])
         .exec((err, results) => {
             if (err) console.log(err)
+
             res.json(results)
         })
     })
@@ -118,12 +127,21 @@ exports.deleteNote = (req, res) => {
         })
 
         // return folder w/ notes
-        Folder.findById(`${folderId}`, (err, results) => {
-            if (err) console.log(err)
-        })
+        // Folder.findById(`${folderId}`, (err, results) => {
+        //     if (err) console.log(err)
+        // })
+        // .populate(['notes'])
+        // .exec((err, results) => {
+        //     if (err) console.log(err)
+        //     res.json(results)
+        // })
+
+        // return all folders with all notes
+        Folder.find()
         .populate(['notes'])
         .exec((err, results) => {
             if (err) console.log(err)
+
             res.json(results)
         })
     })

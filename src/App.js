@@ -12,6 +12,24 @@ function App() {
   const [currentNote, setCurrentNote] = useState({})
   const [currentFolder, setCurrentFolder] = useState({})
 
+  const handleAllFolderRes = (data) => {
+    console.log(data)
+    setFolderData(data)
+    let notes = []
+    data.forEach(folder => {
+      console.log(folder)
+      folder.notes.forEach(note => notes.push(note))
+    })
+    console.log(notes)
+    setNoteData(notes)
+    // set current folder to the first folder if it hasn't been set
+    if (currentFolder.title === undefined) {
+      console.log('setting...')
+      setCurrentFolder(data[0])
+    }
+    console.log(data)
+  }
+
   const routes = {
     // note controllers
     getNote: { url: '/api/note', method: 'GET', handleData: data => {
@@ -20,33 +38,16 @@ function App() {
     getAllNotes: { url: '/api/notes', method: 'GET', handleData: data => {
       console.log(data)
     }},
-    createNote: { url: '/api/note', method: 'POST', handleData: data => {
-      console.log(data)
-    }},
+    createNote: { url: '/api/note', method: 'POST', handleData: handleAllFolderRes},
     editNote: { url: '/api/note', method: 'PUT', handleData: data => {
       console.log(data)
     }},
-    deleteNote: { url: '/api/note', method: 'DELETE', handleData: data => {
-      console.log(data)
-    }},
+    deleteNote: { url: '/api/note', method: 'DELETE', handleData: handleAllFolderRes},
     // folder controllers,
     getFolder: { url: '/api/folder', method: 'GET', handleData: data => {
       console.log(data)
     }},
-    getAllFolders: { url: '/api/folders', method: 'GET', handleData: data => {
-      setFolderData(data)
-      let notes = []
-      data.forEach(folder => {
-        folder.notes.forEach(note => notes.push(note))
-      })
-      setNoteData(notes)
-      // set current folder to the first folder if it hasn't been set
-      if (currentFolder.title === undefined) {
-        console.log('setting...')
-        setCurrentFolder(data[0])
-      }
-      console.log(data)
-    }}
+    getAllFolders: { url: '/api/folders', method: 'GET', handleData: handleAllFolderRes}
   }
 
   const getData = (route, params) => {
@@ -82,11 +83,8 @@ function App() {
     setCurrentNote(newNote)
   }
 
-  const newNote = (e) => {
-    console.log('New note...')
-  }
-
   useEffect(() => getData(routes.getAllFolders), [])
+  useEffect(() => console.log(currentNote), [currentNote])
 
   return (
     <div className="App">
@@ -99,13 +97,16 @@ function App() {
         <NoteList 
           data={noteData} 
           selectNote={selectNote}
-          newNote={newNote} 
+          routes={routes}
+          getData={getData} 
           currentFolder={currentFolder}
           currentNote={currentNote}
         />
         <NoteEdit 
           currentNote={currentNote} 
           editNote={editNote}
+          routes={routes}
+          getData={getData}
         />
       </div>
       
