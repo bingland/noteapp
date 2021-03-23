@@ -7,9 +7,9 @@ import './App.scss';
 
 function App() {
 
-  const [folderData, setFolderData] = useState(null)
-  const [noteData, setNoteData] = useState(null)
-  const [currentNote, setCurrentNote] = useState(null)
+  const [folderData, setFolderData] = useState([])
+  const [noteData, setNoteData] = useState([])
+  const [currentNote, setCurrentNote] = useState({})
 
   const routes = {
     // note controllers
@@ -33,13 +33,23 @@ function App() {
       console.log(data)
     }},
     getAllFolders: { url: '/api/folders', method: 'GET', handleData: data => {
+      setFolderData(data)
+      let notes = []
+      data.forEach(folder => {
+        folder.notes.forEach(note => notes.push(note))
+      })
+      setNoteData(notes)
       console.log(data)
     }}
   }
 
-  const getData = (route) => {
+  const getData = (route, params) => {
+    let addonUrl = params !== undefined ? Object.keys(params).map(key => `${key}=${params[key]}`).join('&') : ''
+    let url = addonUrl !== '' ? route.url + '?' + addonUrl : route.url
+    console.log(url)
+
     //fetch('/api/note?folder=60524c1394586ed2fbc602db&title=My Cool Note&body=my text&id=6052b762926cb13d0e896c86', {
-    fetch(route.url, {
+    fetch(url, {
       method: route.method,
       headers : { 
         'Content-Type': 'application/json',
@@ -54,8 +64,8 @@ function App() {
   return (
     <div className="App">
       <div className="DisplayArea">
-        <FolderList />
-        <NoteList />
+        <FolderList data={folderData} />
+        <NoteList data={noteData} />
         <NoteEdit />
       </div>
       

@@ -4,7 +4,9 @@ const FolderList = (props) => {
 
   return (
     <div className="FolderList">
-      Folder List
+      {props.data.map(folder => (
+          <div className="folder" key={folder._id} data-id={folder._id}>{folder.name}</div>
+      ))}
     </div>
   );
 }
