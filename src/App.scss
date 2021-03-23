@@ -1,8 +1,11 @@
 .App {
+  height: 100vh;
+  font-family: 'Source Sans Pro', sans-serif;
 
   .DisplayArea {
     display: grid;
     grid-template-columns: 250px 250px auto;
     font-size: 20px;
+    height: 100%;
   }
 }

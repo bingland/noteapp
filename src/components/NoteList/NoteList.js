@@ -4,8 +4,9 @@ const NoteList = (props) => {
 
   return (
     <div className="NoteList">
-      {props.data.map(note => (
-        <div className="note" key={note._id} data-id={note._id}>{note.title}</div>
+      <div className="newNoteBtn" onClick={props.newNote}>New Note +</div>
+      {props.data.filter(note => note.folder === props.currentFolder._id).map(note => (
+        <div className="note" onClick={props.selectNote} key={note._id} data-id={note._id}>{note.title}</div>
       ))}
     </div>
   );

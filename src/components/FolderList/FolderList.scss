@@ -3,5 +3,12 @@
 
     .folder {
         padding: 8px 10px;
+        cursor: pointer;
+    }
+    .folder:hover {
+        background-color: darken(lightblue, 10%);
+    }
+    .active {
+        background-color: darken(lightblue, 15%);
     }
 }

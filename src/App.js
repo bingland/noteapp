@@ -1,4 +1,4 @@
-import { useState, useEffect }from 'react'
+import { useState, useEffect } from 'react'
 import FolderList from './components/FolderList/FolderList'
 import NoteList from './components/NoteList/NoteList'
 import NoteEdit from './components/NoteEdit/NoteEdit'
@@ -10,6 +10,7 @@ function App() {
   const [folderData, setFolderData] = useState([])
   const [noteData, setNoteData] = useState([])
   const [currentNote, setCurrentNote] = useState({})
+  const [currentFolder, setCurrentFolder] = useState({})
 
   const routes = {
     // note controllers
@@ -39,6 +40,11 @@ function App() {
         folder.notes.forEach(note => notes.push(note))
       })
       setNoteData(notes)
+      // set current folder to the first folder if it hasn't been set
+      if (currentFolder.title === undefined) {
+        console.log('setting...')
+        setCurrentFolder(data[0])
+      }
       console.log(data)
     }}
   }
@@ -59,14 +65,48 @@ function App() {
       .then(data => route.handleData(data))
   }
 
+  const selectNote = (e) => {
+    console.log(noteData.find(note => e.target.getAttribute('data-id') === note._id))
+    setCurrentNote(noteData.find(note => e.target.getAttribute('data-id') === note._id))
+  }
+
+  const editNote = (e) => {
+    // console.log(e.target.parentNode.getAttribute('data-id'))
+    // let editId = e.target.parentNode.getAttribute('data-id')
+    let newNote = currentNote
+    if (e.target.className === 'noteEditTitle') {
+      newNote.title = e.target.value
+      console.log(e.target.value)
+    }
+    console.log(newNote)
+    setCurrentNote(newNote)
+  }
+
+  const newNote = (e) => {
+    console.log('New note...')
+  }
+
   useEffect(() => getData(routes.getAllFolders), [])
 
   return (
     <div className="App">
       <div className="DisplayArea">
-        <FolderList data={folderData} />
-        <NoteList data={noteData} />
-        <NoteEdit />
+        <FolderList 
+          data={folderData} 
+          currentFolder={currentFolder}
+          setCurrentFolder={setCurrentFolder}
+        />
+        <NoteList 
+          data={noteData} 
+          selectNote={selectNote}
+          newNote={newNote} 
+          currentFolder={currentFolder}
+        />
+        <NoteEdit 
+          currentNote={currentNote} 
+          setCurrentNote={setCurrentNote} 
+          editNote={editNote}
+        />
       </div>
       
     </div>
