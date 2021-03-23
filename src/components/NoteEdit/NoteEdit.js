@@ -3,12 +3,12 @@ import './NoteEdit.scss';
 
 const NoteEdit = (props) => {
 
-  //console.log(props.currentNote.title)
-
   return (
     <div className="NoteEdit">
       {props.currentNote.title !== undefined ? 
         <div className="noteEditBox" data-id={props.currentNote._id}>
+          <button className="deleteNoteBtn">Delete Note</button>
+          <button className="saveNoteBtn">Save Note</button>
           <input 
             className="noteEditTitle" 
             onChange={props.editNote}
@@ -19,7 +19,7 @@ const NoteEdit = (props) => {
           <div className="noteEditDate">{props.currentNote.date}</div>
           <div folder="noteEditFolder">{props.currentNote.folder}</div>
           <textarea 
-            className="noteEditDate" 
+            className="noteEditBody" 
             value={props.currentNote.body}
             placeholder="Enter note body text..."
           />

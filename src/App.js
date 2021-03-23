@@ -101,10 +101,10 @@ function App() {
           selectNote={selectNote}
           newNote={newNote} 
           currentFolder={currentFolder}
+          currentNote={currentNote}
         />
         <NoteEdit 
           currentNote={currentNote} 
-          setCurrentNote={setCurrentNote} 
           editNote={editNote}
         />
       </div>
