@@ -89,10 +89,19 @@ exports.editNote = (req, res) => {
         note.updateOne(note, (err, result) => {
             if (err) console.log(err)
 
-            Note.findById(`${note._id}`, (err, results) => {
-                if (err) console.log(err)
-            })
-            .populate('folder')
+            // Note.findById(`${note._id}`, (err, results) => {
+            //     if (err) console.log(err)
+            // })
+            // .populate('folder')
+            // .exec((err, results) => {
+            //     if (err) console.log(err)
+
+            //     res.json(results)
+            // })
+
+            // return all folders with all notes
+            Folder.find()
+            .populate(['notes'])
             .exec((err, results) => {
                 if (err) console.log(err)
 

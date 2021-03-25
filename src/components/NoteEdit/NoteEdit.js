@@ -8,7 +8,12 @@ const NoteEdit = (props) => {
       {props.currentNote.title !== undefined ? 
         <div className="noteEditBox" data-id={props.currentNote._id}>
           <button onClick={() => props.getData(props.routes.deleteNote, {id: props.currentNote._id})} className="deleteNoteBtn">Delete Note</button>
-          <button className="saveNoteBtn">Save Note</button>
+          <button onClick={() => props.getData(props.routes.editNote, {
+            id: props.currentNote._id,
+            title: props.currentNote.title,
+            body: props.currentNote.body,
+            folder: props.currentNote.folder
+          })} className="saveNoteBtn">Save Note</button>
           <input 
             className="noteEditTitle" 
             onChange={props.editNote}
@@ -22,6 +27,7 @@ const NoteEdit = (props) => {
             className="noteEditBody" 
             value={props.currentNote.body}
             placeholder="Enter note body text..."
+            onChange={props.editNote}
           />
 
         </div>

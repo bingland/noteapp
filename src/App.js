@@ -39,9 +39,7 @@ function App() {
       console.log(data)
     }},
     createNote: { url: '/api/note', method: 'POST', handleData: handleAllFolderRes},
-    editNote: { url: '/api/note', method: 'PUT', handleData: data => {
-      console.log(data)
-    }},
+    editNote: { url: '/api/note', method: 'PUT', handleData: handleAllFolderRes},
     deleteNote: { url: '/api/note', method: 'DELETE', handleData: handleAllFolderRes},
     // folder controllers,
     getFolder: { url: '/api/folder', method: 'GET', handleData: data => {
@@ -72,19 +70,17 @@ function App() {
   }
 
   const editNote = (e) => {
-    // console.log(e.target.parentNode.getAttribute('data-id'))
-    // let editId = e.target.parentNode.getAttribute('data-id')
     let newNote = currentNote
     if (e.target.className === 'noteEditTitle') {
       newNote.title = e.target.value
-      console.log(e.target.value)
     }
-    console.log(newNote)
-    setCurrentNote(newNote)
+    if (e.target.className === 'noteEditBody') {
+      newNote.body = e.target.value
+    }
+    setCurrentNote(JSON.parse(JSON.stringify(newNote)))
   }
 
   useEffect(() => getData(routes.getAllFolders), [])
-  useEffect(() => console.log(currentNote), [currentNote])
 
   return (
     <div className="App">
