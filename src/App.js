@@ -80,6 +80,21 @@ function App() {
     setCurrentNote(JSON.parse(JSON.stringify(newNote)))
   }
 
+  // convert unix time into english
+  const getFullDate = (UNIX_timestamp) => {
+    let a = new Date(UNIX_timestamp)
+    console.log(UNIX_timestamp)
+    let months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    let year = a.getFullYear()
+    let month = months[a.getMonth()]
+    let date = a.getDate()
+    let hour = a.getHours()
+    let min = a.getMinutes()
+    // modify these values to adjust to what you need
+    let time = `${month} ${date}, ${year} at ${hour}:${min}`
+    return time
+  }
+
   useEffect(() => getData(routes.getAllFolders), [])
 
   return (
@@ -103,6 +118,7 @@ function App() {
           editNote={editNote}
           routes={routes}
           getData={getData}
+          getFullDate={getFullDate}
         />
       </div>
       

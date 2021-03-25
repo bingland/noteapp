@@ -21,7 +21,7 @@ const NoteEdit = (props) => {
             value={props.currentNote.title} 
             placeholder="Enter note title..."
           />
-          <div className="noteEditDate">{props.currentNote.date}</div>
+          <div className="noteEditDate">{props.getFullDate(props.currentNote.date)}</div>
           <div folder="noteEditFolder">{props.currentNote.folder}</div>
           <textarea 
             className="noteEditBody" 
