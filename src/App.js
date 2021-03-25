@@ -83,7 +83,6 @@ function App() {
   // convert unix time into english
   const getFullDate = (UNIX_timestamp) => {
     let a = new Date(UNIX_timestamp)
-    console.log(UNIX_timestamp)
     let months = ['January','February','March','April','May','June','July','August','September','October','November','December']
     let year = a.getFullYear()
     let month = months[a.getMonth()]
@@ -115,6 +114,7 @@ function App() {
         />
         <NoteEdit 
           currentNote={currentNote} 
+          currentFolder={currentFolder}
           editNote={editNote}
           routes={routes}
           getData={getData}

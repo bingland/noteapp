@@ -19,6 +19,10 @@ exports.getAllFolders = (req, res) => {
 
     Folder.find()
     .populate(['notes'])
+    // .populate({
+    //     path: 'folder',
+    //     populate: { path: 'folder', model: 'Folder' }
+    // })
     .exec((err, results) => {
         if (err) console.log(err)
 
