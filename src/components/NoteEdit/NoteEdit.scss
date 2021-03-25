@@ -4,9 +4,19 @@
     .noteEditBox {
         padding: 10px;
 
-        button {
-            padding: 5px;
-            margin: 5px;
+        .controls {
+            right: 50px;
+            position: absolute;
+
+            button {
+                padding: 10px;
+                margin: 5px;
+                background-color: rgb(71, 71, 71);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 15px;
+            }
         }
 
         .noteEditTitle {
@@ -16,6 +26,15 @@
             font-weight: bold;
             display: block;
             padding: 10px 0;
+            width: 400px;
+        }
+
+        .noteEditDate {
+
+        }
+
+        .noteEditFolder {
+            margin-top: 10px;
         }
 
         .noteEditBody {

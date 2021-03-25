@@ -7,13 +7,15 @@ const NoteEdit = (props) => {
     <div className="NoteEdit">
       {props.currentNote.title !== undefined ? 
         <div className="noteEditBox" data-id={props.currentNote._id}>
-          <button onClick={() => props.getData(props.routes.deleteNote, {id: props.currentNote._id})} className="deleteNoteBtn">Delete Note</button>
-          <button onClick={() => props.getData(props.routes.editNote, {
-            id: props.currentNote._id,
-            title: props.currentNote.title,
-            body: props.currentNote.body,
-            folder: props.currentNote.folder
-          })} className="saveNoteBtn">Save Note</button>
+          <div className="controls">
+            <button onClick={() => props.getData(props.routes.deleteNote, {id: props.currentNote._id})} className="deleteNoteBtn">Delete Note</button>
+            <button onClick={() => props.getData(props.routes.editNote, {
+              id: props.currentNote._id,
+              title: props.currentNote.title,
+              body: props.currentNote.body,
+              folder: props.currentNote.folder
+            })} className="saveNoteBtn">Save Note</button>
+          </div>
           <input 
             className="noteEditTitle" 
             onChange={props.editNote}
@@ -22,7 +24,7 @@ const NoteEdit = (props) => {
             placeholder="Enter note title..."
           />
           <div className="noteEditDate">{props.getFullDate(props.currentNote.date)}</div>
-          <div folder="noteEditFolder">{props.currentFolder.name}</div>
+          <div className="noteEditFolder">{props.currentFolder.name}</div>
           <textarea 
             className="noteEditBody" 
             value={props.currentNote.body}

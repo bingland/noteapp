@@ -1,22 +1,25 @@
 .NoteList {
-    background-color: lightseagreen;
+    background-color: white;
+    border-right: 1px solid black;
 
     .newNoteBtn {
-        background-color: rgb(0, 119, 255);
+        background-color: rgb(71, 71, 71);
+        font-weight: bold;
+        color: white;
         padding: 8px 10px;
         cursor: pointer;
     }
     .newNoteBtn:hover {
-        background-color: rgb(22, 155, 137);
+        background-color: rgb(46, 46, 46);
     }
     .note {
         padding: 8px 10px;
         cursor: pointer;
     }
     .note:hover {
-        background-color: darken(lightseagreen, 10%);
+        background-color: rgb(209, 209, 209);
     }
     .active {
-        background-color: darken(lightseagreen, 10%);
+        background-color: rgb(209, 209, 209);
     }
 }
